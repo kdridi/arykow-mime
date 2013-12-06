@@ -42,12 +42,90 @@ exports['parseFromBuffer'] = {
       test.done();
     });
   },
+  'failureFromBufferUndefined': function(test) {
+    arykow.mime.parseFromBuffer().then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.NULL);
+      test.done();
+    });
+  },
+  'failureFromBufferBadData': function(test) {
+    arykow.mime.parseFromBuffer([""]).then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.INVALID);
+      test.done();
+    });
+  },
+  'failureFromBufferEmpty': function(test) {
+    arykow.mime.parseFromBuffer(new Buffer("")).then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.INVALID);
+      test.done();
+    });
+  },
 };
 
 exports['parseFromFile'] = {
   setUp: function(done) {
     // setup here
     done();
+  },
+  'failureFromFileNULL': function(test) {
+    arykow.mime.parseFromFile(null).then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.FSERR);
+      test.done();
+    });
+  },
+  'failureFromFileUndefined': function(test) {
+    arykow.mime.parseFromFile().then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.FSERR);
+      test.done();
+    });
+  },
+  'failureFromFileBadData': function(test) {
+    arykow.mime.parseFromFile(1).then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.FSERR);
+      test.done();
+    });
   },
   'failureFromFileFSERR': function(test) {
     arykow.mime.parseFromFile('test/data/01.not.file').then(function(result) {
@@ -131,6 +209,58 @@ exports['parseFromURI'] = {
   },
   'failureFromURIHTTP02': function(test) {
     arykow.mime.parseFromURI('http://google.fr/placehold.it/1x1').then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.HTTP);
+      test.done();
+    });
+  },
+  'failureFromURIHTTP03': function(test) {
+    arykow.mime.parseFromURI('').then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.HTTP);
+      test.done();
+    });
+  },
+  'failureFromURIHTTP04': function(test) {
+    arykow.mime.parseFromURI(56087659).then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.HTTP);
+      test.done();
+    });
+  },
+  'failureFromURIHTTP05': function(test) {
+    arykow.mime.parseFromURI().then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.HTTP);
+      test.done();
+    });
+  },
+  'failureFromURIHTTP06': function(test) {
+    arykow.mime.parseFromURI(null).then(function(result) {
       test.expect(1);
       test.equal(result, null);
       test.done();
