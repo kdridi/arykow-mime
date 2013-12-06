@@ -77,8 +77,10 @@ exports['parseFromFile'] = {
   },
   'successFromFileGIF': function(test) {
     arykow.mime.parseFromFile('test/data/01.gif').then(function(result) {
-      test.expect(5);
+      test.expect(7);
       test.notEqual(result, null);
+      test.notEqual(result.data, null);
+      test.equal(result.data.toString('base64'), "R0lGODdhAQABAIAAAMzMzJaWliwAAAAAAQABAAACAkQBADs=");
       test.notEqual(result.name, null);
       test.equal(result.name, 'image/gif');
       test.notEqual(result.extension, null);
@@ -92,8 +94,10 @@ exports['parseFromFile'] = {
   },
   'successFromFilePNG': function(test) {
     arykow.mime.parseFromFile('test/data/01.png').then(function(result) {
-      test.expect(5);
+      test.expect(7);
       test.notEqual(result, null);
+      test.notEqual(result.data, null);
+      test.equal(result.data.toString('base64'), "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==");
       test.notEqual(result.name, null);
       test.equal(result.name, 'image/png');
       test.notEqual(result.extension, null);
@@ -106,7 +110,6 @@ exports['parseFromFile'] = {
     });
   },
 };
-
 
 exports['parseFromURI'] = {
   setUp: function(done) {
@@ -141,8 +144,10 @@ exports['parseFromURI'] = {
   },
   'successFromURIGIF': function(test) {
     arykow.mime.parseFromURI('http://placehold.it/1x1.gif').then(function(result) {
-      test.expect(5);
+      test.expect(7);
       test.notEqual(result, null);
+      test.notEqual(result.data, null);
+      test.equal(result.data.toString('base64'), "R0lGODdhAQABAIAAAMzMzJaWliwAAAAAAQABAAACAkQBADs=");
       test.notEqual(result.name, null);
       test.equal(result.name, 'image/gif');
       test.notEqual(result.extension, null);
@@ -156,8 +161,10 @@ exports['parseFromURI'] = {
   },
   'successFromURIPNG': function(test) {
     arykow.mime.parseFromURI('http://placehold.it/1x1.png').then(function(result) {
-      test.expect(5);
+      test.expect(7);
       test.notEqual(result, null);
+      test.notEqual(result.data, null);
+      test.equal(result.data.toString('base64'), "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==");
       test.notEqual(result.name, null);
       test.equal(result.name, 'image/png');
       test.notEqual(result.extension, null);
