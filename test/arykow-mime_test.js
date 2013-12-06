@@ -106,3 +106,67 @@ exports['parseFromFile'] = {
     });
   },
 };
+
+
+exports['parseFromURI'] = {
+  setUp: function(done) {
+    // setup here
+    done();
+  },
+  'failureFromURIHTTP01': function(test) {
+    arykow.mime.parseFromURI('ht:tp://placehold.it/1x1').then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.HTTP);
+      test.done();
+    });
+  },
+  'failureFromURIHTTP02': function(test) {
+    arykow.mime.parseFromURI('http://google.fr/placehold.it/1x1').then(function(result) {
+      test.expect(1);
+      test.equal(result, null);
+      test.done();
+    }, function(error) {
+      test.expect(3);
+      test.notEqual(error, null);
+      test.notEqual(error.message, null);
+      test.equal(error.message, arykow.mime.errors.HTTP);
+      test.done();
+    });
+  },
+  'successFromURIGIF': function(test) {
+    arykow.mime.parseFromURI('http://placehold.it/1x1.gif').then(function(result) {
+      test.expect(5);
+      test.notEqual(result, null);
+      test.notEqual(result.name, null);
+      test.equal(result.name, 'image/gif');
+      test.notEqual(result.extension, null);
+      test.equal(result.extension, 'gif');
+      test.done();
+    }, function(error) {
+      test.expect(1);
+      test.equal(error, null);
+      test.done();
+    });
+  },
+  'successFromURIPNG': function(test) {
+    arykow.mime.parseFromURI('http://placehold.it/1x1.png').then(function(result) {
+      test.expect(5);
+      test.notEqual(result, null);
+      test.notEqual(result.name, null);
+      test.equal(result.name, 'image/png');
+      test.notEqual(result.extension, null);
+      test.equal(result.extension, 'png');
+      test.done();
+    }, function(error) {
+      test.expect(1);
+      test.equal(error, null);
+      test.done();
+    });
+  },
+};
